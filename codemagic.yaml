@@ -7,9 +7,9 @@ workflows:
         script: emulator -avd emulator > /dev/null 2>&1 &
       - name: Run tests
         script: 
-            chmod +x gradlew 
+            chmod +x ./gradlew 
             ./gradlew test
       - name: Build integrated test
         script: 
-            chmod +x gradlew
+            chmod +x ./gradlew
             ./gradlew assembleAndroidTest
