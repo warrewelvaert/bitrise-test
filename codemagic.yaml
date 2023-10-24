@@ -4,12 +4,22 @@ workflows:
     max_build_duration: 120
     environment:
         java: 17
+        groups:
+          - codecov_credentials 
     scripts:
-      - name: Start Android emulator
+      - name: Start Android Emulator
         script: emulator -avd emulator > /dev/null 2>&1 &
-      - name: Set Gradle permissions
+      - name: Set Gradle Permissions
         script: chmod +x ./gradlew
-      - name: Run tests
+      - name: Generate Test Coverage Report
+        script: ./gradlew createDebugCoverageReport
+      - name: Download Codecov Bash Uploader
+        script: curl -O https://codecov.io/bash
+      - name: Make Codecov Bash Uploader executable
+        script: chmod +x bash
+      - name: Upload coverage report to Codecov
+        script: ./bash -f  ./app/build/reports/coverage/androidTest/debug/connected/report.xml
+      - name: Running Unit Tests
         script: ./gradlew test
-      - name: Build integrated test
+      - name: Running Integrated Tests
         script: ./gradlew assembleAndroidTest
