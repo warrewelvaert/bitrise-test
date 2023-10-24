@@ -11,8 +11,10 @@ workflows:
         script: emulator -avd emulator > /dev/null 2>&1 &
       - name: Set Gradle Permissions
         script: chmod +x ./gradlew
-      - name: Check Emulator
-        script: adb devices
+      - name: Running Unit Tests
+        script: ./gradlew test
+      - name: Running Integrated Tests
+        script: ./gradlew assembleAndroidTest
       - name: Download Codecov Bash Uploader
         script: curl -O https://codecov.io/bash
       - name: Make Codecov Bash Uploader executable
@@ -21,7 +23,3 @@ workflows:
         script: ./gradlew createDebugCoverageReport
       - name: Upload coverage report to Codecov
         script: ./bash -f  ./app/build/reports/coverage/androidTest/debug/connected/report.xml
-      - name: Running Unit Tests
-        script: ./gradlew test
-      - name: Running Integrated Tests
-        script: ./gradlew assembleAndroidTest
