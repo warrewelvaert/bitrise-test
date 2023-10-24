@@ -5,11 +5,9 @@ workflows:
     scripts:
       - name: Start Android emulator
         script: emulator -avd emulator > /dev/null 2>&1 &
+      - name: Set Gradle permissions
+        script: chmod +x ./gradlew
       - name: Run tests
-        script: 
-            chmod +x ./gradlew 
-            ./gradlew test
+        script: ./gradlew test
       - name: Build integrated test
-        script: 
-            chmod +x ./gradlew
-            ./gradlew assembleAndroidTest
+        script: ./gradlew assembleAndroidTest
