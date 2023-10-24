@@ -19,7 +19,5 @@ workflows:
         script: curl -O https://codecov.io/bash
       - name: Make Codecov Bash Uploader executable
         script: chmod +x bash
-      - name: Generate Test Coverage Report
-        script: ./gradlew createDebugCoverageReport
       - name: Upload coverage report to Codecov
-        script: ./bash -f  ./app/build/reports/coverage/androidTest/debug/connected/report.xml
+        script: ./bash -f  ./report.xml
